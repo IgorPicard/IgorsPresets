@@ -1,9 +1,9 @@
 {
-	"appName": "Bow of the Guardian buff",
-	"description": "Bow of the Guardian buff enlarger",
+	"appName": "Zuk Hardmode helper",
+	"description": "Zuk Hardmode helper",
 	"appUrl":"./",
 	"configUrl":"./appconfig.jon",
-	"iconUrl": "images/bolg.data.png",
+	"iconUrl": "images/zuk.png",
 	"defaultWidth": 100,
 	"defaultHeight": 100,
 	"minWidth": 0,
