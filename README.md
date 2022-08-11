@@ -1,4 +1,4 @@
-### Hi there 👋
+### Hi there! All boss presets are currently part of the "hub" hosted on https://linktr.ee/igorspresets 👋
 
 <!--
 **IgorsPresets/igorspresets** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
