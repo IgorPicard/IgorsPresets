@@ -2285,24 +2285,39 @@ function read(pos) {
     }
     return null;
 }
-function slideShow(wave) {
-    if (wave == null)
-        return;
-    if (wave < 0 || wave > 18)
-        return;
-    let img = document.getElementById("bg");
-    img.src = "./images/wave" + wave + ".png";
+let wave = 1;
+let img_el = document.getElementById("bg");
+function slideShow() {
+    img_el.src = "./images/wave" + wave + ".png";
 }
+img_el.onclick = function () {
+    wave++;
+    if (wave > 18)
+        wave = 18;
+    slideShow();
+};
+img_el.oncontextmenu = function (e) {
+    e.preventDefault();
+    wave--;
+    if (wave < 1)
+        wave = 1;
+    slideShow();
+};
 // check if we are running inside alt1 by checking if the alt1 global exists
 if (window.alt1) {
     alt1.identifyAppUrl("./appconfig.json");
     let findInterface = setInterval(function () {
         let pos = find();
+        let old_wave = 1;
         if (pos) {
             clearInterval(findInterface);
             setInterval(function () {
-                let wave = read(pos);
-                slideShow(wave);
+                let new_wave = read(pos);
+                if (new_wave != null && old_wave != new_wave) {
+                    wave = new_wave;
+                    old_wave = new_wave;
+                    slideShow();
+                }
             }, 600);
         }
     }, 1000);
