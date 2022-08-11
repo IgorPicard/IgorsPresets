@@ -2,6 +2,12 @@
 //also gives your editor info about the window.alt1 api
 import * as A1lib from "@alt1/base";
 import { findChar } from "@alt1/ocr/dist";
+import { emojiLUT } from "./emojiLUT";
+import { wave_text } from "./wavetexts";
+
+import * as $ from "./jquery";
+
+
 
 //tell webpack to add index.html and appconfig.json to output
 require("!file-loader?name=[name].[ext]!./index.html");
@@ -84,6 +90,28 @@ let img_el = document.getElementById("bg") as HTMLImageElement;
 
 function slideShow() {  
     img_el.src = "./images/wave" + wave + ".png";
+
+    const discordEmojiRegex = new RegExp("<:([^:]{2,}):([0-9]+)>", 'i');
+
+    let txt = wave_text[wave.toString()];
+
+    // Add tabs and remove colons
+    txt = txt.replace(/•/g, "&emsp;•");
+    txt = txt.replace(/:/g, "");
+
+    for (const emoji of emojiLUT) {
+        if (txt.toLowerCase().includes(emoji[0])) {
+            txt = txt.replace(new RegExp(emoji[0], "igm"), '<img class="disc-emoji" src="https://cdn.discordapp.com/emojis/' + discordEmojiRegex.exec(emoji[1])[2] + '.png?v=1">')
+        }
+    }
+
+    document.getElementById("rotation").innerHTML = txt.replace(/\n/g, "<br>");
+
+    // Some shitty hack to allow scrolling
+    var winhei = window.innerHeight;
+    var nonhei = $('#bg').height();
+    var newhei = winhei - nonhei - 20;
+    $("#rotation").height(newhei);
 }
 
 img_el.onclick = function () {
