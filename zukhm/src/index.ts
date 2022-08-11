@@ -94,7 +94,7 @@ img_el.onclick = function () {
 
 img_el.oncontextmenu = function (e) {
     e.preventDefault();
-    
+
     wave--;
     if (wave < 1) wave = 1;
     slideShow();
@@ -103,11 +103,15 @@ img_el.oncontextmenu = function (e) {
 
 
 // check if we are running inside alt1 by checking if the alt1 global exists
+
 if (window.alt1) {
     alt1.identifyAppUrl("./appconfig.json");
     let findInterface = setInterval(function () {
         let pos = find();
-        let old_wave = 1;
+
+        let old_wave = -1;
+        let timer;  // Timer for stand-by
+        
         if (pos) {
             clearInterval(findInterface);
             setInterval(function () {
@@ -116,6 +120,19 @@ if (window.alt1) {
                     wave = new_wave;
                     old_wave = new_wave;
                     slideShow();
+
+                    // Clear stand-by timer if it was active
+                    clearTimeout(timer);
+                }
+
+                if (new_wave == null && old_wave != -1) {
+                    // Reset wave number if no wave is detected, also prevents starting mutliple timers
+                    old_wave = -1;
+
+                    // No wave found, start stand-by timer
+                    timer = setTimeout(function () {
+                        img_el.src = "./images/Zuk_NM_Standby.png";
+                    }, 5000);
                 }
             }, 600);
         }
