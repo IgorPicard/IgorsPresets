@@ -81,16 +81,10 @@ function read(pos) {
 
 function slideShow(wave) {   
     if (wave == null) return;
+    if (wave < 0 || wave > 18) return;
 
-    if (wave >= 1 && wave <= 5) {
-        // Section 1
-    } else 
-    if (wave >= 6 && wave <= 10) {
-        // Section 2
-    } else 
-    if (wave >= 11 && wave <= 15) {
-        // Section 3
-    }
+    let img = document.getElementById("bg") as HTMLImageElement;
+    img.src = "./images/wave" + wave + ".png";
 }
 
 // check if we are running inside alt1 by checking if the alt1 global exists
